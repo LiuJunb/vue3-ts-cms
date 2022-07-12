@@ -1,7 +1,11 @@
 <template>
   <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+    <el-button>Default</el-button>
+    <el-button type="primary">Primary</el-button>
+    <el-button type="success">Success</el-button>
+    <br />
+    <router-link to="/">Main</router-link> |
+    <router-link to="/about">Login</router-link>
   </nav>
   <router-view />
 </template>
