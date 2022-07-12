@@ -4,8 +4,8 @@
     <el-button type="primary">Primary</el-button>
     <el-button type="success">Success</el-button>
     <br />
-    <router-link to="/">Main</router-link> |
-    <router-link to="/about">Login</router-link>
+    <router-link to="/main">Main</router-link> |
+    <router-link to="/login">Login</router-link>
   </nav>
   <router-view />
 </template>

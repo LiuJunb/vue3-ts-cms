@@ -13,4 +13,5 @@ export interface HYRequestInterceptors<T = any> {
 export interface HYRequestConfig<T = any> extends AxiosRequestConfig {
   // 2.这里可以扩展自己的类型
   interceptors?: HYRequestInterceptors<T>
+  showLoading?: boolean
 }

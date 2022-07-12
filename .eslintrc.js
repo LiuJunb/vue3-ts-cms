@@ -20,6 +20,7 @@ module.exports = {
       {
         ignores: []
       }
-    ]
+    ],
+    '@typescript-eslint/no-explicit-any': 'off'
   }
 }

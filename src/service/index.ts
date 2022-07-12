@@ -4,13 +4,9 @@ import { BASE_URL, TIME_OUT } from './request/config'
 const hyRequest = new HYRequest({
   baseURL: BASE_URL,
   timeout: TIME_OUT,
+  // showLoading: true, // 全局配置显示loading
   interceptors: {
     requestInterceptor: (config) => {
-      const token = ''
-      if (token) {
-        // 例子：统一给header添加 Authorization 属性
-        config.headers!.Authorization = `Bearer ${token}`
-      }
       console.log('单个实例-请求成功的拦截')
       return config
     },
