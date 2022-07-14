@@ -1,5 +1,5 @@
 import axios from 'axios'
-import type { AxiosInstance, AxiosResponse } from 'axios'
+import type { AxiosInstance } from 'axios'
 import type { HYRequestInterceptors, HYRequestConfig } from './type'
 // 导入ElLoading组件和样式
 import 'element-plus/es/components/loading/style/css'
@@ -71,14 +71,14 @@ class HYRequest<T = any> {
     )
   }
 
-  request<T = any>(config: HYRequestConfig): Promise<AxiosResponse<T>> {
+  request<T = any>(config: HYRequestConfig): Promise<T> {
     return new Promise((resolve, reject) => {
       // 判断某个请求是否需要显示loading
       if (config.showLoading === false) {
         this.showLoading = config.showLoading
       }
       this.instance
-        .request<T>(config)
+        .request<T, T>(config)
         .then((res) => {
           // 3.将结果resolve返回出去
           resolve(res)
@@ -94,17 +94,17 @@ class HYRequest<T = any> {
     })
   }
 
-  get<T = any>(config: HYRequestConfig<T>): Promise<AxiosResponse<T>> {
+  get<T = any>(config: HYRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: 'GET' })
   }
-  post<T = any>(config: HYRequestConfig<T>): Promise<AxiosResponse<T>> {
+  post<T = any>(config: HYRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: 'POST' })
   }
-  delete<T = any>(config: HYRequestConfig<T>): Promise<AxiosResponse<T>> {
+  delete<T = any>(config: HYRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: 'DELETE' })
   }
 
-  patch<T = any>(config: HYRequestConfig<T>): Promise<AxiosResponse<T>> {
+  patch<T = any>(config: HYRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: 'PATCH' })
   }
 }
