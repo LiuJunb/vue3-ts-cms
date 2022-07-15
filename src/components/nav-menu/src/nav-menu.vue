@@ -1,9 +1,12 @@
 <template>
   <div class="nav-menu">
+    <!-- logo -->
     <div class="logo">
       <img class="img" src="~@/assets/img/logo.svg" alt="logo" />
+      <!-- 折叠时隐藏标题 -->
       <span v-if="!collapse" class="title">Vue3+TS</span>
     </div>
+    <!-- 菜单导航 -->
     <el-menu
       default-active="2"
       class="el-menu-vertical"
@@ -18,13 +21,17 @@
           <!-- 二级菜单的可以展开的标题 -->
           <el-sub-menu :index="item.id + ''">
             <template #title>
-              <i v-if="item.icon" :class="item.icon"></i>
+              <el-icon v-if="item.icon"
+                ><component :is="formatIcon(item)"></component
+              ></el-icon>
               <span>{{ item.name }}</span>
             </template>
             <!-- 遍历里面的item -->
             <template v-for="subitem in item.children" :key="subitem.id">
               <el-menu-item :index="subitem.id + ''">
-                <i v-if="subitem.icon" :class="subitem.icon"></i>
+                <el-icon v-if="subitem.icon"
+                  ><component :is="formatIcon(subitem)"></component
+                ></el-icon>
                 <span>{{ subitem.name }}</span>
               </el-menu-item>
             </template>
@@ -33,7 +40,9 @@
         <!-- 一级菜单 -->
         <template v-else-if="item.type === 2">
           <el-menu-item :index="item.id + ''">
-            <i v-if="item.icon" :class="item.icon"></i>
+            <el-icon v-if="item.icon"
+              ><component :is="formatIcon(item)"></component
+            ></el-icon>
             <span>{{ item.name }}</span>
           </el-menu-item>
         </template>
@@ -42,24 +51,24 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, computed } from 'vue'
+<script lang="ts" setup>
+import { computed } from 'vue'
 import { useStore } from 'vuex'
-import 'element-plus/es/components/sub-menu/style/css'
 import type { IStoreType } from '@/store/types'
-export default defineComponent({
-  props: {
-    collapse: {
-      type: Boolean,
-      default: false
-    }
-  },
-  setup() {
-    const store = useStore<IStoreType>()
-    const userMenus = computed(() => store.state.login.userMenus)
-    return {
-      userMenus
-    }
+interface Props {
+  collapse: boolean
+}
+// 1.定义属性并且带上默认值
+const props = withDefaults(defineProps<Props>(), {
+  collapse: true
+})
+// 2.拿到登录的后的用户菜单
+const store = useStore<IStoreType>()
+const userMenus = computed(() => store.state.login.userMenus)
+// 3.格式化icon。例如：后台返回的是el-icon-setting, 我们只需 setting 即可
+const formatIcon = computed(() => {
+  return (item: any) => {
+    return item.icon.replace('el-icon-', '')
   }
 })
 </script>
