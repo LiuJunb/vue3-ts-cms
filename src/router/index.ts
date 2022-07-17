@@ -12,7 +12,14 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/main', // 首页布局
     name: 'main',
-    component: () => import('@/views/main/main.vue')
+    component: () => import('@/views/main/main.vue'),
+    children: [
+      // {
+      //   path: 'system/user', // 用户管理 页面（使用动态注册）
+      //   name: 'user',
+      //   component: () => import('@/views/main/system/user/user.vue')
+      // }
+    ]
   },
   {
     path: '/:pathMatch(.*)*', // 没有匹配的路径显示该页面
