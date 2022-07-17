@@ -28,7 +28,10 @@
             </template>
             <!-- 遍历里面的item -->
             <template v-for="subitem in item.children" :key="subitem.id">
-              <el-menu-item :index="subitem.id + ''">
+              <el-menu-item
+                :index="subitem.id + ''"
+                @click="handleMenuItemClick(subitem)"
+              >
                 <el-icon v-if="subitem.icon"
                   ><component :is="formatIcon(subitem)"></component
                 ></el-icon>
@@ -39,7 +42,10 @@
         </template>
         <!-- 一级菜单 -->
         <template v-else-if="item.type === 2">
-          <el-menu-item :index="item.id + ''">
+          <el-menu-item
+            :index="item.id + ''"
+            @click="handleMenuItemClick(item)"
+          >
             <el-icon v-if="item.icon"
               ><component :is="formatIcon(item)"></component
             ></el-icon>
@@ -54,6 +60,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 import type { IStoreType } from '@/store/types'
 interface Props {
   collapse: boolean
@@ -71,6 +78,13 @@ const formatIcon = computed(() => {
     return item.icon.replace('el-icon-', '')
   }
 })
+// 4.处理菜单的点击事件
+const router = useRouter()
+const handleMenuItemClick = (item: any) => {
+  router.push({
+    path: item.url ?? '/not-found'
+  })
+}
 </script>
 
 <style scoped lang="less">
