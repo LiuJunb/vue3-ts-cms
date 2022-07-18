@@ -5,6 +5,7 @@ import {
 } from '@/service/login/login'
 import localCache from '@/utils/cache'
 import router from '@/router'
+import { mapMenusToRoutes } from '@/utils/map-menus'
 
 import type { Module } from 'vuex'
 import type { IAccount } from '@/service/login/types'
@@ -32,6 +33,12 @@ const loginModule: Module<ILoginState, IRootState> = {
     changeUserMenus(state, userMenus: any) {
       // 保存用户菜单
       state.userMenus = userMenus
+      // 2.将userMenus 映射为 routes
+      const routes = mapMenusToRoutes(userMenus)
+      // 3.动态注册路由
+      routes.forEach((route) => {
+        router.addRoute('main', route)
+      })
     }
   },
   actions: {
