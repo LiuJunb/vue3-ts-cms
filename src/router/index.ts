@@ -1,8 +1,9 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
+import localCache from '@/utils/cache'
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    redirect: '/login' // 访问默认路由时，重定向到登录页面
+    redirect: '/main'
   },
   {
     path: '/login', // 登录页面
@@ -33,4 +34,17 @@ const router = createRouter({
   routes
 })
 
+// 导航守卫
+router.beforeEach((to) => {
+  if (to.path !== '/login') {
+    const token = localCache.getCache('token')
+    if (!token) {
+      return '/login'
+    }
+  }
+  if (to.path === '/main') {
+    // todo 暂时写成跳出到用户列表页
+    return '/main/system/user'
+  }
+})
 export default router

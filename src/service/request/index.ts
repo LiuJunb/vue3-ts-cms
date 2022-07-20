@@ -33,7 +33,7 @@ class HYRequest<T = any> {
     // 给所有实例添加全局的拦截器
     this.instance.interceptors.request.use(
       (config) => {
-        console.log('所有的实例都有的拦截器: 请求成功拦截')
+        // console.log('所有的实例都有的拦截器: 请求成功拦截')
         if (this.showLoading) {
           this.loading = ElLoading.service({
             lock: true,
@@ -45,21 +45,21 @@ class HYRequest<T = any> {
         return config
       },
       (err) => {
-        console.log('所有的实例都有的拦截器: 请求失败拦截')
+        // console.log('所有的实例都有的拦截器: 请求失败拦截')
         return err
       }
     )
 
     this.instance.interceptors.response.use(
       (res) => {
-        console.log('所有的实例都有的拦截器: 响应成功拦截')
+        // console.log('所有的实例都有的拦截器: 响应成功拦截')
 
         this.loading?.close() // 将loading移除
         // 这里还可以对返回的数据进行判断
         return res.data
       },
       (err) => {
-        console.log('所有的实例都有的拦截器: 响应失败拦截')
+        // console.log('所有的实例都有的拦截器: 响应失败拦截')
 
         this.loading?.close() // 将loading移除
         // 例子: 判断不同的HttpErrorCode显示不同的错误信息

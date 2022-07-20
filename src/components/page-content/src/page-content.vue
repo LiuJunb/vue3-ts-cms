@@ -12,11 +12,7 @@
       </template>
       <!-- 2.列中的插槽 -->
       <template #status="scope">
-        <el-button
-          plain
-          size="mini"
-          :type="scope.row.enable ? 'success' : 'danger'"
-        >
+        <el-button plain :type="scope.row.enable ? 'success' : 'danger'">
           {{ scope.row.enable ? '启用' : '禁用' }}
         </el-button>
       </template>
@@ -28,21 +24,8 @@
       </template>
       <template #handler="scope">
         <div class="handle-btns">
-          <el-button
-            icon="el-icon-edit"
-            size="mini"
-            type="text"
-            @click="handleEditClick(scope.row)"
-          >
-            编辑
-          </el-button>
-          <el-button
-            icon="el-icon-delete"
-            size="mini"
-            type="text"
-            @click="handleDeleteClick(scope.row)"
-            >删除</el-button
-          >
+          <el-button text @click="handleEditClick(scope.row)"> 编辑 </el-button>
+          <el-button text @click="handleDeleteClick(scope.row)">删除</el-button>
         </div>
       </template>
     </hy-table>
