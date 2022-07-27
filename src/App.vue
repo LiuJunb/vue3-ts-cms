@@ -1,6 +1,7 @@
 <template>
   <el-config-provider :locale="locale">
     <div class="app">
+      啪啪啪
       <router-view></router-view>
     </div>
   </el-config-provider>
